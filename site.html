@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheat Menu</title>
+    <script src="https://kit.fontawesome.com/ca6c476900.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #222; /* Set the background color to matte black */
+            color: #fff; /* Set the text color to white */
+            transition: background-color 0.5s; /* Add transition for smooth color change */
+        }
+
+        #menu {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        #menu a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+            background-color: transparent; /* Set initial background color to transparent */
+        }
+
+        #menu a:hover {
+            color: #f1f1f1;
+        }
+
+        #menu a i {
+            margin-right: 8px;
+        }
+
+        #separator {
+            width: 4px;
+            height: 100%;
+            background-color: #95b806;
+            position: absolute;
+            top: 0;
+            left: 200px;
+        }
+
+        .page-content {
+            display: none;
+        }
+
+        #content {
+            margin-left: 220px;
+            padding: 16px;
+        }
+
+        /* Add styles for the active (clicked) button */
+        #menu a.active {
+            color: #fff;
+            background-color: #555;
+            transform: scale(1.05); /* Slightly grow in size */
+        }
+    </style>
+</head>
+<body>
+
+<div id="menu">
+    <a href="javascript:void(0);" onclick="changeContent('home')" id="homeButton" class="active"><i class="fas fa-home"></i> Home</a>
+    <a href="javascript:void(0);" onclick="changeContent('aboutMe')" id="aboutMeButton"><i class="fa-solid fa-user-secret"></i> About Me</a>
+    <a href="javascript:void(0);" onclick="changeContent('socials')" id="socialsButton"><i class="fas fa-share-alt"></i> Socials</a>
+    <!-- Add more cheat buttons as needed -->
+</div>
+
+<div id="separator"></div>
+
+<div id="content">
+    <div id="home" class="page-content" style="display: block;">
+        <h2>Welcome to the Home Page</h2>
+        <p>This is the initial content for the Home page.</p>
+    </div>
+    <div id="aboutMe" class="page-content">
+        <h2>About Me</h2>
+        <p>This is the content for the About Me page.</p>
+    </div>
+    <div id="socials" class="page-content">
+        <h2>My Socials</h2>
+        <p>This is the content for the Socials page.</p>
+        <!-- Add your social links or content here -->
+    </div>
+    <!-- Add more divs for additional pages as needed -->
+</div>
+
+<script>
+    function changeContent(page) {
+        // Hide all pages
+        const pages = document.getElementsByClassName('page-content');
+        for (const pageElement of pages) {
+            pageElement.style.display = 'none';
+        }
+
+        // Show the selected page
+        document.getElementById(page).style.display = 'block';
+
+        // Remove 'active' class from all buttons
+        const buttons = document.querySelectorAll('#menu a');
+        buttons.forEach(button => button.classList.remove('active'));
+
+        // Add 'active' class to the clicked button
+        document.getElementById(`${page}Button`).classList.add('active');
+    }
+</script>
+
+</body>
+</html>
