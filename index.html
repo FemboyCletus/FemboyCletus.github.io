@@ -95,7 +95,8 @@
         }
 
         body.light-mode #separator {
-            background-color: #6699ff;
+	    /* I prefer this color to what was used before, but this is mostly personal preference */
+            background-color: #8E7CC3;
         }
 
         body.dark-mode #separator {
@@ -144,6 +145,8 @@
 <body class="dark-mode">
 
 <div id="menu">
+    <!-- Added a silly little logo thingy, which is basically just the favicon image lol. I still think it's cute. -->
+    <img src="https://raw.githubusercontent.com/FemboyCletus/FemboyCletus.github.io/main/favicon.png" alt="real image of cletus" style="width:100px;height:100px;">
     <a href="javascript:void(0);" onclick="changeContent('home')" id="homeButton" class="side-button active" onclick="scaleButton(this)"><i class="fas fa-home"></i> Home</a>
     <a href="javascript:void(0);" onclick="changeContent('aboutMe')" id="aboutMeButton" class="side-button" onclick="scaleButton(this)"><i class="fa-solid fa-user-secret"></i> About Me</a>
     <a href="javascript:void(0);" onclick="changeContent('socials')" id="socialsButton" class="side-button" onclick="scaleButton(this)"><i class="fas fa-share-alt"></i> Socials</a>
