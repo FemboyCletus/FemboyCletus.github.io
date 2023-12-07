@@ -29,6 +29,7 @@ var hitBomb;
 var elapsedTime;
 var timerId;
 var winner;
+var pressTimer; // Added variable for press timer
 
 /*----- cached element references -----*/
 var boardEl = document.getElementById('board');
@@ -40,29 +41,142 @@ document.getElementById('size-btns').addEventListener('click', function(e) {
   render();
 });
 
-boardEl.addEventListener('click', function(e) {
-  if (winner || hitBomb) return;
-  var clickedEl;
-  clickedEl = e.target.tagName.toLowerCase() === 'img' ? e.target.parentElement : e.target;
+var pressTimer;
+var isFlagging = false;
+
+function handlePressStart(e) {
+  // Handle long press (flagging) with touchstart
+  pressTimer = setTimeout(function () {
+    isFlagging = true;
+
+    var clickedEl = e.target.tagName.toLowerCase() === 'img' ? e.target.parentElement : e.target;
+    if (clickedEl.classList.contains('game-cell')) {
+      var row = parseInt(clickedEl.dataset.row);
+      var col = parseInt(clickedEl.dataset.col);
+      var cell = board[row][col];
+
+      if (!cell.revealed) {
+        if (cell.flagged) {
+          cell.flag(); // Unflag
+          bombCount += 1;
+        } else {
+          cell.flag(); // Flag
+          bombCount -= 1;
+        }
+        winner = getWinner();
+        render();
+      }
+    }
+  }, 300); // Adjust the duration as needed (300ms in this case)
+}
+
+function handlePressEnd(e) {
+  // Handle short press (revealing) with touchend
+  clearTimeout(pressTimer);
+
+  if (!isFlagging) {
+    var clickedEl = e.target.tagName.toLowerCase() === 'img' ? e.target.parentElement : e.target;
+    if (clickedEl.classList.contains('game-cell')) {
+      var row = parseInt(clickedEl.dataset.row);
+      var col = parseInt(clickedEl.dataset.col);
+      var cell = board[row][col];
+
+      if (!cell.revealed && !cell.flagged) {
+        hitBomb = cell.reveal();
+        if (hitBomb) {
+          // If it's a bomb, reveal all spaces
+          revealAll();
+          clearInterval(timerId);
+          clickedEl.style.backgroundColor = 'red';
+        }
+        winner = getWinner();
+        render();
+      }
+    }
+  }
+
+  isFlagging = false; // Reset the flagging state
+}
+
+// Update event listeners
+boardEl.addEventListener('touchstart', handlePressStart);
+boardEl.addEventListener('touchend', handlePressEnd);
+
+// Event listener for mouse press start
+boardEl.addEventListener('mousedown', function (e) {
+  if (e.shiftKey) {
+    e.preventDefault();
+    isFlagging = true;
+
+    var clickedEl = e.target.tagName.toLowerCase() === 'img' ? e.target.parentElement : e.target;
+    if (clickedEl.classList.contains('game-cell')) {
+      var row = parseInt(clickedEl.dataset.row);
+      var col = parseInt(clickedEl.dataset.col);
+      var cell = board[row][col];
+
+      if (!cell.revealed) {
+        if (cell.flagged) {
+          cell.flag(); // Unflag
+          bombCount += 1;
+        } else {
+          cell.flag(); // Flag
+          bombCount -= 1;
+        }
+        winner = getWinner();
+        render();
+      }
+    }
+  }
+});
+
+// Event listener for mouse press end
+boardEl.addEventListener('mouseup', function (e) {
+  if (isFlagging) {
+    e.preventDefault(); // Prevent the default behavior (text selection, etc.)
+    isFlagging = false; // Reset the flagging state
+  } else {
+    // Handle short press (revealing) with mouseup
+    var clickedEl = e.target.tagName.toLowerCase() === 'img' ? e.target.parentElement : e.target;
+    if (clickedEl.classList.contains('game-cell')) {
+      var row = parseInt(clickedEl.dataset.row);
+      var col = parseInt(clickedEl.dataset.col);
+      var cell = board[row][col];
+
+      if (!cell.revealed && !cell.flagged) {
+        hitBomb = cell.reveal();
+        if (hitBomb) {
+          // If it's a bomb, reveal all spaces
+          revealAll();
+          clearInterval(timerId);
+          e.target.style.backgroundColor = 'red';
+        }
+        winner = getWinner();
+        render();
+      }
+    }
+  }
+});
+
+function handleRegularClick(e) {
+  var clickedEl = e.target.tagName.toLowerCase() === 'img' ? e.target.parentElement : e.target;
   if (clickedEl.classList.contains('game-cell')) {
-    if (!timerId) setTimer();
     var row = parseInt(clickedEl.dataset.row);
     var col = parseInt(clickedEl.dataset.col);
     var cell = board[row][col];
-    if (e.shiftKey && !cell.revealed && bombCount > 0) {
-      bombCount += cell.flag() ? -1 : 1;
-    } else {
+
+    if (!cell.revealed && !cell.flagged) {
       hitBomb = cell.reveal();
       if (hitBomb) {
+        // If it's a bomb, reveal all spaces
         revealAll();
         clearInterval(timerId);
         e.target.style.backgroundColor = 'red';
       }
+      winner = getWinner();
+      render();
     }
-    winner = getWinner();
-    render();
   }
-});
+}
 
 function createResetListener() { 
   document.getElementById('reset').addEventListener('click', function() {
@@ -230,5 +344,6 @@ function runCodeForAllCells(cb) {
   });
 }
 
-init();
-render();
+size = 16; // Set the size to medium (16)
+init(); // Initialize the game
+render(); // Render the game board
