@@ -1,0 +1,330 @@
+@font-face {
+    font-family: "Digital Dismay";
+    src: url("./digital-dismay.otf") format("truetype");
+}
+
+@font-face {
+    font-family: "Press Start";
+    src: url("./prstart.ttf");
+}
+
+@font-face {
+    font-family: "MS Sans Serif";
+    src: url("./micross.ttf");
+}
+
+* {
+    -o-user-select: none;
+    user-select: none;
+}
+
+body {
+    background-color: #222;
+}
+
+#board {
+    background-color: lightgray;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #222;
+    color: #fff;
+    transition: background-color 0.5s;
+    position: relative;
+}
+
+body.light-mode {
+    background-color: #edb2b2;
+    color: #333;
+}
+
+body.dark-mode {
+    color: #fff;
+}
+
+#menu {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    color: #818181;
+    transition: background-color 0.5s, color 0.5s;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+body.light-mode #menu {
+    background-color: #f5c3c3;
+    color: #333;
+}
+
+body.dark-mode #menu {
+    background-color: #333;
+}
+
+#menu a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    transition: 0.3s;
+    background-color: transparent;
+}
+
+body.light-mode #menu a {
+    color: #333;
+}
+
+body.dark-mode #menu a {
+    color: #fff;
+}
+
+#menu a:hover {
+    color: #f1f1f1;
+}
+
+#menu a.active {
+    color: #fff;
+    background-color: #f9dcdc;
+    transition: background-color 0.5s;
+}
+
+body.dark-mode #menu a.active {
+    background-color: #4d4d4d;
+}
+
+#menu a i {
+    margin-right: 8px;
+}
+
+#separator {
+    width: 4px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 200px;
+    bottom: 0;
+    transition: background-color 0.5s;
+}
+
+body.light-mode #separator {
+    background-color: #6699ff;
+}
+
+body.dark-mode #separator {
+    background-color: #95b806;
+}
+
+.page-content {
+    display: none;
+}
+
+#content {
+    margin-left: 220px;
+    padding: 16px;
+}
+
+#modeToggle {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+#modeToggle i {
+    margin-right: 8px;
+}
+
+.side-button {
+    transition: transform 0.3s ease-in-out;
+}
+
+#menu a.active {
+    transform: scale(1.1);
+}
+
+
+button {
+    font-family: 'MS Sans Serif';
+    text-align: left;
+    font-size: 14px;
+    height: 30px;
+    width: 100px;
+    background-color: #BFBFBF;
+    color: black;
+    border-bottom: 2px solid #7B7B7B;
+    border-left: 2px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    border-right: 2px solid #7B7B7B;
+}
+
+button:hover {
+    background-color: lightgray;
+    color: slategray;
+    cursor: pointer;
+}
+
+#clock {
+    font-family: 'MS Sans Serif';
+    font-size: 14px;
+    display: inline;
+    float: right;
+    border-top: 1.5px solid #808080;
+    border-left: 1.5px solid #808080;
+    border-right: 1.5px solid #FAFAFA;
+    border-bottom: 1.5px solid #FAFAFA;
+    /* height: 28px; */
+    width: 200px;
+    height: 22px;
+    margin: 2px;
+    padding: 5px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    margin: 80px 10px;
+}
+
+#folder1 {
+    display: inline;
+    padding-right: 10px;
+}
+
+#folder2 {
+    display: inline;
+    padding-right: 10px;
+}
+
+#folder-bar {
+    background-color: #D3CEC4;
+    border: none;
+    text-align: left;
+    padding: 2px 8px;
+}
+
+#footer {
+    text-align: center;
+    position: fixed;
+    height: 36px;
+    background-color: #BFBFBF;
+    bottom: 0px;
+    left: 200px;
+    right: 0px;
+    margin-bottom: 0px;
+}
+
+.menu a {
+    font-family: 'MS Sans Serif';
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0;
+}
+
+#reset {
+    text-align: center;
+    width: 35px;
+    height: 35px;
+    border-top: 2px solid #ffffff;
+    border-right: 2px solid #7B7B7B;
+    border-bottom: 2px solid #7B7B7B;
+    border-left: 2px solid #ffffff;
+}
+
+.revealed {
+    font-family: "Press Start";
+    background-color: #C0C0C0;
+    font-size: 80%;
+    text-align: center;
+    border: none;
+}
+
+#reset:hover {
+    text-align: center;
+    cursor: pointer;
+}
+
+.sidebar {
+    vertical-align: top;
+    max-width: 300px;
+    margin: 0 30px;
+}
+
+#size-btns {
+    float: left;
+    display: inline;
+    margin: 2px;
+}
+
+#start {
+    float: left;
+}
+
+#status-bar  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2px;
+    margin: 6px;
+    border-top: 2px solid #7B7B7B;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    border-left: 2px solid #7B7B7B;
+}
+
+td {
+    height: 20px;
+    width: 20px;
+    background-color: #C0C0C0;
+    border: 1.5px solid;
+    border-top-color: #ffffff;
+    border-right-color: #7B7B7B;
+    border-bottom-color: #7B7B7B;
+    border-left-color: #ffffff;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#timer, #bomb-counter {
+    font-family: 'Digital Dismay';
+    font-size: 35px;
+    letter-spacing: 1px;
+    color: red;
+    background-color: black;
+    text-align: center;
+    padding: 4px 4px 0 7px;
+    line-height: 1em;
+}
+
+#window-controls {
+    float: right;
+    cursor: pointer;
+}
+
+#window-title {
+    font-family: 'MS Sans Serif';
+    letter-spacing: .5px;
+    float: left;
+    color: #D5DEF3;
+    font-size: 16px;
+}
+
+#window-title-bar {
+    background: -moz-linear-gradient(left, rgba(33,41,89,1) 0%, rgba(33,41,89,1) 11%, rgba(80,114,161,1) 56%, rgba(117,172,219,0.7) 92%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(33,41,89,1) 0%,rgba(33,41,89,1) 11%,rgba(80,114,161,1) 56%,rgba(117,172,219,0.7) 92%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(33,41,89,1) 0%,rgba(33,41,89,1) 11%,rgba(80,114,161,1) 56%,rgba(117,172,219,0.7) 92%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#212959', endColorstr='#007db9e8',GradientType=1 ); /* IE6-9 */
+}
