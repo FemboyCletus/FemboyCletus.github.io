@@ -1,103 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/styles.css"> <!-- Link to the external CSS file -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cletus :3</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://kit.fontawesome.com/ca6c476900.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="dark-mode">
 
-<div id="menu">
-    <a href="javascript:void(0);" onclick="changeContent('home')" id="homeButton" class="side-button active" onclick="scaleButton(this)"><i class="fas fa-home"></i> Home</a>
-    <a href="javascript:void(0);" onclick="changeContent('aboutMe')" id="aboutMeButton" class="side-button" onclick="scaleButton(this)"><i class="fa-solid fa-user-secret"></i> About Me</a>
-    <a href="javascript:void(0);" onclick="changeContent('socials')" id="socialsButton" class="side-button" onclick="scaleButton(this)"><i class="fas fa-share-alt"></i> Socials</a>
-    <!-- Add more side buttons as needed -->
-</div>
+    <div id="menu">
+        <a href="javascript:void(0);" onclick="changeContent('home')" id="homeButton" class="side-button active"><i
+                class="fas fa-home"></i> Home</a>
+        <a href="javascript:void(0);" onclick="changeContent('aboutMe')" id="aboutMeButton"
+            class="side-button"><i class="fa-solid fa-user-secret"></i> About Me</a>
+        <a href="javascript:void(0);" onclick="changeContent('socials')" id="socialsButton"
+            class="side-button"><i class="fas fa-share-alt"></i> Socials</a>
+        <!-- Add more side buttons as needed -->
+    </div>
 
-<div id="separator"></div>
+    <div id="separator"></div>
 
-<div id="content">
-    <div id="home" class="page-content" style="display: block;">
-        <h2>Welcome to the Home Page</h2>
-        <div class="flex-container">
-            <div class="game-board">
-                <br>
-                <table id="board"></table>
+    <div id="content">
+        <div id="home" class="page-content">
+            <h2>Welcome to the Home Page</h2>
+            <div class="flex-container">
+                <div class="game-board">
+                    <br>
+                    <table id="board"></table>
+                </div>
             </div>
+            <section id="footer">
+                <div id="start"><img src="images/start.png"></div>
+                <div id="size-btns">
+                    <button id="size-9"><img src="images/easy.png"> Easy</button>
+                    <button id="size-16"><img src="images/medium.png"> Medium</button>
+                    <button id="size-30"><img src="images/hard.png"> Hard</button>
+                </div>
+                <div id="clock" class="clock-text"><em>"Shift + Click"</em> to toggle <img
+                        src="images/flag.png"></div>
+                <script src="js/cell.js"></script>
+                <script src="js/main.js"></script>
+            </section>
         </div>
-        <section id="footer">
-            <div id="start"><img src="images/start.png"></div>
-            <div id="size-btns">
-                <div id="size-btns"><button id="size-9"><img src="images/easy.png"> Easy</button></div>
-                <div id="size-btns"><button id="size-16"><img src="images/medium.png"> Medium</button></div>
-                <div id="size-btns"><button id="size-30"><img src="images/hard.png"> Hard</button></div>
-            </div>
-            <div id="clock"><em>"Shift + Click"</em></strong> to toggle <img src="images/flag.png"></div>
-        </section>
+
+        <div id="aboutMe" class="page-content">
+            <h2>About Me</h2>
+            <p>This is the content for the About Me page.</p>
+        </div>
+
+        <div id="socials" class="page-content">
+            <h2>My Socials</h2>
+            <p>This is the content for the Socials page.</p>
+            <!-- Add your social links or content here -->
+        </div>
+        <!-- Add more divs for additional pages as needed -->
     </div>
 
-    <div id="aboutMe" class="page-content">
-        <h2>About Me</h2>
-        <p>This is the content for the About Me page.</p>
+    <!-- Dark/Light Mode Toggle Button -->
+    <div id="modeToggle" onclick="toggleMode()">
+        <i class="fas fa-adjust" id="modeIcon"></i> <!-- Icon for dark/light mode -->
     </div>
-    <div id="socials" class="page-content">
-        <h2>My Socials</h2>
-        <p>This is the content for the Socials page.</p>
-        <!-- Add your social links or content here -->
-    </div>
-    <!-- Add more divs for additional pages as needed -->
-</div>
 
-<!-- Dark/Light Mode Toggle Button -->
-<div id="modeToggle" onclick="toggleMode()">
-    <i class="fas fa-adjust" id="modeIcon"></i> <!-- Icon for dark/light mode -->
-</div>
+    <script>
+        // Function to change content and mark button as active
+        function changeContent(page) {
+            // Hide all pages
+            const pages = document.getElementsByClassName('page-content');
+            for (const pageElement of pages) {
+                pageElement.style.display = 'none';
+            }
 
-<script src="js/cell.js"></script>
-<script src="js/main.js"></script>
+            // Show the selected page
+            document.getElementById(page).style.display = 'block';
 
-<script>
-    function changeContent(page) {
-        // Hide all pages
-        const pages = document.getElementsByClassName('page-content');
-        for (const pageElement of pages) {
-            pageElement.style.display = 'none';
+            // Remove 'active' class from all buttons
+            const buttons = document.querySelectorAll('#menu a');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Add 'active' class to the clicked button
+            document.getElementById(`${page}Button`).classList.add('active');
         }
 
-        // Show the selected page
-        document.getElementById(page).style.display = 'block';
+        // Function to toggle dark/light mode
+        function toggleMode() {
+            const body = document.body;
+            const separator = document.getElementById('separator');
+            const modeToggle = document.getElementById('modeToggle');
+            const modeIcon = document.getElementById('modeIcon');
 
-        // Remove 'active' class from all buttons
-        const buttons = document.querySelectorAll('#menu a');
-        buttons.forEach(button => button.classList.remove('active'));
+            body.classList.toggle("dark-mode");
+            body.classList.toggle("light-mode");
+            separator.classList.toggle("light-mode");
 
-        // Add 'active' class to the clicked button
-        document.getElementById(`${page}Button`).classList.add('active');
-    }
+            // Change the background color of the dark mode toggle button
+            const isDarkMode = body.classList.contains("dark-mode");
+            modeToggle.style.backgroundColor = isDarkMode ? "#333" : "#f5c3c3"; // Change to your preferred color
 
-    function toggleMode() {
-        const body = document.body;
-        const separator = document.getElementById('separator');
-        const modeToggle = document.getElementById('modeToggle');
-        const modeIcon = document.getElementById('modeIcon');
+            // Change the color of the icon on the dark mode toggle button
+            modeIcon.style.color = isDarkMode ? "#fff" : "#333"; // Change to your preferred color
+        }
 
-        body.classList.toggle("dark-mode");
-        body.classList.toggle("light-mode");
-        separator.classList.toggle("light-mode");
+        // Automatically show the "home" page on page load
+        window.addEventListener('load', function () {
+            changeContent('home');
+        });
 
-        // Change the background color of the dark mode toggle button
-        const isDarkMode = body.classList.contains("dark-mode");
-        modeToggle.style.backgroundColor = isDarkMode ? "#333" : "#f5c3c3"; // Change to your preferred color
+        // Detect screen size and update clock content
+        window.addEventListener('resize', function () {
+            updateClockContent();
+        });
 
-        // Change the color of the icon on the dark mode toggle button
-        modeIcon.style.color = isDarkMode ? "#fff" : "#333"; // Change to your preferred color
-    }
-</script>
+        function updateClockContent() {
+            const clockText = document.querySelector('.clock-text em');
+            const isMobile = window.innerWidth <= 768; // Adjust the breakpoint as needed
+
+            if (isMobile) {
+                clockText.textContent = 'Long press';
+            } else {
+                clockText.textContent = '"Shift + Click"';
+            }
+        }
+
+        // Initial update on page load
+        updateClockContent();
+    </script>
 
 </body>
+
 </html>
