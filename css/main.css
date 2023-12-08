@@ -36,8 +36,9 @@ body {
 }
 
 body.light-mode {
-    background-color: #edb2b2;
-    color: #333;
+	/* I prefer this color to what was used before, but this is mostly personal preference (From Bruh) */
+	background-color: #8E7CC3;
+	color: #333;
 }
 
 body.dark-mode {
